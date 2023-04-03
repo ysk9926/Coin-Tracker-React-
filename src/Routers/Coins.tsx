@@ -45,6 +45,7 @@ const Coin = styled.li`
 
 const Load = styled.div`
   display: flex;
+  color: ${(props) => props.theme.accentColor};
   align-items: center;
   justify-content: center;
   font-size: 2em;

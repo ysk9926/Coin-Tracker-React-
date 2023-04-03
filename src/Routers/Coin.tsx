@@ -36,6 +36,7 @@ const Title = styled.h1`
 
 const Load = styled.div`
   display: flex;
+  color: ${(props) => props.theme.accentColor};
   align-items: center;
   justify-content: center;
   font-size: 2em;
@@ -233,7 +234,7 @@ function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>현재가</span>
-              <span>${priceData?.quotes.USD.market_cap_change_24h}</span>
+              <span>${priceData?.quotes.USD.price.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
           <Description>

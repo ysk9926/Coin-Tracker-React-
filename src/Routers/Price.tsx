@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { addEmitHelper } from "typescript";
 import { fetchCoinPrice } from "../Api";
-
 const PriceContainer = styled.div`
   margin: 30px;
 `;
@@ -23,7 +22,7 @@ const NowDateItem = styled.div`
   display: flex;
   justify-content: center;
   color: ${(props) => props.theme.accentColor};
-  font-weight: 400;
+  font-weight: 600;
   font-size: 18px;
   div {
     font-size: 14px;
@@ -51,10 +50,40 @@ const Change = styled.div`
 `;
 
 const ChangeItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border: 2px solid ${(props) => props.theme.subBgColor};
-  padding: 20px;
+  padding: 20px 30px;
   border-radius: 10px;
   color: ${(props) => props.theme.accentColor};
+  label {
+    font-weight: 600;
+  }
+`;
+
+interface IItemstyleProps {
+  percentage: number;
+  className?: string;
+}
+
+function itemStyle({ percentage, className }: IItemstyleProps) {
+  return (
+    <div className={className}>
+      <div>{percentage.toFixed(1)}%</div>
+    </div>
+  );
+}
+
+const ItemStyled = styled(itemStyle)<{ percentage: number }>`
+  font-weight: 600;
+  font-size: 24px;
+  color: ${(props) =>
+    props.percentage > 0
+      ? props.theme.increaseColor
+      : props.percentage === 0
+      ? props.theme.flatColor
+      : props.theme.decreaseColor};
 `;
 
 interface IPriceData {
@@ -102,48 +131,58 @@ function Price({ coinId }: IcoinId) {
   );
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
+  const [oneH, setOneH] = useState<number>(1);
+  const [oneD, setOneD] = useState<number>(1);
+  const [teH, setTeH] = useState<number>(1);
+  const [sevD, setSevD] = useState<number>(1);
   useEffect(() => {
     if (priceData?.quotes.USD.ath_date) {
-      const quotes = priceData?.quotes?.USD.ath_date;
-      const date = new Date(quotes);
+      const quotes = priceData?.quotes?.USD;
+      const oneHour = quotes.percent_change_1h;
+      const oneDay = quotes.percent_change_24h;
+      const teHours = quotes.percent_change_12h;
+      const sevDay = quotes.percent_change_7d;
+      const date = new Date(quotes.ath_date);
       const athDateString = date.toLocaleDateString("ko-KR");
       const athTimeString = date.toLocaleTimeString("ko-KR");
+      setOneH(oneHour);
+      setOneD(oneDay);
+      setTeH(teHours);
+      setSevD(sevD);
       setDate(athDateString);
       setTime(athTimeString);
     }
   }, [priceData]);
+  console.log(oneH);
 
   return (
     <>
       <PriceContainer>
         <PriceHeaderBox>
           <NowDateItem>
-            <div>
-              {date}
-              {time}
-            </div>
+            <div>{date}</div>
           </NowDateItem>
-          <NowDateItem>역대 최고가</NowDateItem>
+          <NowDateItem>HIGH</NowDateItem>
           <NowDateItemSpan>
-            ${priceData?.quotes.USD.ath_price.toFixed(2)}
+            $ {priceData?.quotes.USD.ath_price.toFixed(2)}
           </NowDateItemSpan>
         </PriceHeaderBox>
         <Change>
           <ChangeItem>
-            <span>1시간 전 보다</span>
-            <span> {priceData?.quotes.USD.percent_change_1h.toFixed(1)}% </span>
+            <label>1H</label>
+            <ItemStyled percentage={oneH} />
           </ChangeItem>
           <ChangeItem>
-            <span>12시간 전 보다</span>
-            <span>{priceData?.quotes.USD.percent_change_12h.toFixed(1)}%</span>
+            <label>12H</label>
+            <ItemStyled percentage={oneD} />
           </ChangeItem>
           <ChangeItem>
-            <span>24시간 전 보다</span>
-            <span>{priceData?.quotes.USD.percent_change_24h.toFixed(1)}%</span>
+            <label>1D</label>
+            <ItemStyled percentage={teH} />
           </ChangeItem>
           <ChangeItem>
-            <span>7일 전 보다</span>
-            <span>{priceData?.quotes.USD.percent_change_7d.toFixed(1)}%</span>
+            <label>7D</label>
+            <ItemStyled percentage={sevD} />
           </ChangeItem>
         </Change>
       </PriceContainer>
