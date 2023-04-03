@@ -61,7 +61,7 @@ const OverviewItem = styled.div`
 
   span:nth-child(2) {
     padding-top: 8px;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
   }
 `;
@@ -192,6 +192,7 @@ function Coin() {
     () => fetchCoinPrice(coinId)
   );
   const loading = infoLoading || priceLoading;
+  console.log(priceData);
   // const [loading, setLoading] = useState(true);
   // const [info, setInfo] = useState<IInfoData>();
   // const [price, setPrice] = useState<IPriceData>();
@@ -214,11 +215,7 @@ function Coin() {
     <Container>
       <Header>
         <Title>
-          {state?.name
-            ? state.name.toUpperCase()
-            : loading
-            ? "loading..."
-            : infoData?.name.toUpperCase()}
+          {state?.name ? state.name : loading ? "loading..." : infoData?.name}
         </Title>
       </Header>
       {loading ? (

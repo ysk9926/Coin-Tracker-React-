@@ -4,13 +4,13 @@ export function fetchCoin() {
   return fetch(`${BASE_URL}/coins`).then((response) => response.json());
 }
 
-export function fetchCoinInfo(coinId: string) {
+export function fetchCoinInfo(coinId: string | undefined) {
   return fetch(`${BASE_URL}/coins/${coinId}`).then((response) =>
     response.json()
   );
 }
 
-export function fetchCoinPrice(coinId: string) {
+export function fetchCoinPrice(coinId: string | undefined) {
   return fetch(`${BASE_URL}/tickers/${coinId}`).then((response) =>
     response.json()
   );

@@ -1,7 +1,61 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import styled from "styled-components";
 import { addEmitHelper } from "typescript";
 import { fetchCoinPrice } from "../Api";
+
+const PriceContainer = styled.div`
+  margin: 30px;
+`;
+
+const PriceHeaderBox = styled.div`
+  border: 3px solid ${(props) => props.theme.subBgColor};
+  padding: 20px;
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 20px);
+  grid-row-gap: 0px;
+  grid-column-gap: 10px;
+`;
+
+const NowDateItem = styled.div`
+  display: flex;
+  justify-content: center;
+  color: ${(props) => props.theme.accentColor};
+  font-weight: 400;
+  font-size: 18px;
+  div {
+    font-size: 14px;
+  }
+`;
+
+const NowDateItemSpan = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.accentColor};
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  font-size: 24px;
+  font-weight: 600;
+`;
+
+const Change = styled.div`
+  margin-top: 15px;
+  display: grid;
+  grid-gap: 20px;
+
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr auto;
+`;
+
+const ChangeItem = styled.div`
+  border: 2px solid ${(props) => props.theme.subBgColor};
+  padding: 20px;
+  border-radius: 10px;
+  color: ${(props) => props.theme.accentColor};
+`;
 
 interface IPriceData {
   id: string;
@@ -59,7 +113,42 @@ function Price({ coinId }: IcoinId) {
     }
   }, [priceData]);
 
-  return <div>Price</div>;
+  return (
+    <>
+      <PriceContainer>
+        <PriceHeaderBox>
+          <NowDateItem>
+            <div>
+              {date}
+              {time}
+            </div>
+          </NowDateItem>
+          <NowDateItem>역대 최고가</NowDateItem>
+          <NowDateItemSpan>
+            ${priceData?.quotes.USD.ath_price.toFixed(2)}
+          </NowDateItemSpan>
+        </PriceHeaderBox>
+        <Change>
+          <ChangeItem>
+            <span>1시간 전 보다</span>
+            <span> {priceData?.quotes.USD.percent_change_1h.toFixed(1)}% </span>
+          </ChangeItem>
+          <ChangeItem>
+            <span>12시간 전 보다</span>
+            <span>{priceData?.quotes.USD.percent_change_12h.toFixed(1)}%</span>
+          </ChangeItem>
+          <ChangeItem>
+            <span>24시간 전 보다</span>
+            <span>{priceData?.quotes.USD.percent_change_24h.toFixed(1)}%</span>
+          </ChangeItem>
+          <ChangeItem>
+            <span>7일 전 보다</span>
+            <span>{priceData?.quotes.USD.percent_change_7d.toFixed(1)}%</span>
+          </ChangeItem>
+        </Change>
+      </PriceContainer>
+    </>
+  );
 }
 
 export default Price;
