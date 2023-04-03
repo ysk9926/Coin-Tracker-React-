@@ -4,7 +4,7 @@ import Coins from "./Routers/Coins";
 
 function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/react_challenge/">
       <Switch>
         <Route path={`/:coinId`}>
           <Coin />
