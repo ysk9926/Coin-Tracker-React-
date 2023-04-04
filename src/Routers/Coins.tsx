@@ -17,10 +17,11 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Title = styled.h1`
-  font-size: 48px;
+  font-size: 35px;
   font-weight: 600;
   color: ${(props) => props.theme.titleClolr};
 `;
@@ -54,12 +55,16 @@ const Load = styled.div`
 `;
 
 const Btn = styled.button`
+  position: absolute;
+  top: 4vh;
+  right: 0px;
+  border: none;
   background: none;
   div {
     position: relative;
-    width: 70px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.1);
+    width: 50px;
+    height: 22px;
+    background-color: ${(props) => props.theme.btnBgColor};
     border-radius: 30px;
     display: flex;
     justify-content: center;
@@ -74,21 +79,21 @@ const Btn = styled.button`
   }
   div:hover {
     padding-left: 0px;
-    padding-right: 20px;
+    padding-right: 10px;
     color: rgba(255, 255, 255, 1);
     span {
       left: calc(100% - 25px);
-      background-color: black;
+      background-color: ${(props) => props.theme.btnRight};
     }
   }
   span {
     position: absolute;
     left: 5px;
-    width: 20px;
-    height: 20px;
-    background-color: whitesmoke;
+    width: 15px;
+    height: 15px;
+    background-color: ${(props) => props.theme.btnLeft};
     border-radius: 50%;
-    transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in;
   }
 `;
 
@@ -108,6 +113,7 @@ function Coins() {
   const isDarkMode = () => {
     isDark((prev) => !prev);
   };
+  console.log(isDark);
 
   // const [coins, setCoins] = useState<coins[]>([]);
   // const [loading, setLoading] = useState(true);

@@ -58,7 +58,7 @@ const OverviewItem = styled.div`
   text-align: center;
   font-size: 14px;
   font-weight: 400;
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.titleClolr};
 
   span:nth-child(2) {
     padding-top: 8px;
@@ -71,7 +71,7 @@ const Description = styled.p`
   margin: 30px 10px;
   text-align: center;
   line-height: 22px;
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.titleClolr};
 `;
 
 const Tags = styled.div`
@@ -105,7 +105,7 @@ const Tag = styled.div<{ isActive: boolean }>`
 `;
 
 const Back = styled.div`
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.titleClolr};
   position: absolute;
   top: 20px;
   left: 20px;

@@ -10,5 +10,8 @@ declare module "styled-components" {
     decreaseColor: string;
     increaseColor: string;
     flatColor: string;
+    btnLeft: string;
+    btnRight: string;
+    btnBgColor: string;
   }
 }

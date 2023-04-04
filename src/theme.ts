@@ -9,17 +9,23 @@ export const darkTheme: DefaultTheme = {
   decreaseColor: "#A4193D",
   increaseColor: "#2BAE66",
   flatColor: "#A2A2A1",
+  btnLeft: "black",
+  btnRight: "whitesmoke",
+  btnBgColor: "#FCF6F5",
 };
 
 export const lightTheme: DefaultTheme = {
-  bgColor: "#F2AA4C",
+  bgColor: "#FCF6F5",
   titleClolr: "#101820",
   textColor: "#F2AA4C",
-  accentColor: "#101820",
+  accentColor: "#FCF6F5",
   subBgColor: "#101820",
   decreaseColor: "#A4193D",
   increaseColor: "#2BAE66",
   flatColor: "#A2A2A1",
+  btnLeft: "whitesmoke",
+  btnRight: "black",
+  btnBgColor: "#F2AA4C",
 };
 
-//bgcolor : #101820  title : white  textcolor : bgcolor   accent : white   font-size :
+//bgcolor : #101820 남색  title : white  textcolor : bgcolor   accent : white   font-size :

@@ -21,7 +21,7 @@ const PriceHeaderBox = styled.div`
 const NowDateItem = styled.div`
   display: flex;
   justify-content: center;
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.titleClolr};
   font-weight: 600;
   font-size: 18px;
   div {
@@ -33,7 +33,7 @@ const NowDateItemSpan = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.titleClolr};
   grid-column: 2 / 3;
   grid-row: 1 / 3;
   font-size: 24px;
@@ -56,7 +56,7 @@ const ChangeItem = styled.div`
   border: 2px solid ${(props) => props.theme.subBgColor};
   padding: 20px 30px;
   border-radius: 10px;
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.titleClolr};
   label {
     font-weight: 600;
   }
