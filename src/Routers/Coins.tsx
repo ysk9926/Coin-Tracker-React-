@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { fetchCoin } from "../Api";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
@@ -14,16 +14,18 @@ const Container = styled.div`
 
 const Header = styled.header`
   height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   position: relative;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   font-size: 35px;
   font-weight: 600;
   color: ${(props) => props.theme.titleClolr};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const CoinList = styled.ul``;
 
@@ -55,45 +57,19 @@ const Load = styled.div`
 `;
 
 const Btn = styled.button`
-  position: absolute;
-  top: 4vh;
-  right: 0px;
+  background-color: ${(props) => props.theme.bgColor};
   border: none;
-  background: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 10px;
   div {
-    position: relative;
-    width: 50px;
-    height: 22px;
-    background-color: ${(props) => props.theme.btnBgColor};
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    border-top: 0.5px solid rgba(255, 255, 255, 0.35);
-    border-left: 0.5px solid rgba(255, 255, 255, 0.35);
-    padding-left: 20px;
-    transition: 0.5s ease-in-out;
+    width: 30px;
+    height: 30px;
+    color: ${(props) => props.theme.btnColor};
   }
   div:hover {
-    padding-left: 0px;
-    padding-right: 10px;
-    color: rgba(255, 255, 255, 1);
-    span {
-      left: calc(100% - 25px);
-      background-color: ${(props) => props.theme.btnRight};
-    }
-  }
-  span {
-    position: absolute;
-    left: 5px;
-    width: 15px;
-    height: 15px;
-    background-color: ${(props) => props.theme.btnLeft};
-    border-radius: 50%;
-    transition: 0.5s ease-in;
+    color: ${(props) => props.theme.btnHoverColor};
   }
 `;
 
@@ -109,11 +85,12 @@ interface coins {
 
 function Coins() {
   const { isLoading, data } = useQuery<coins[]>(["AllCoin"], fetchCoin);
+  const btnDark = useRecoilState<boolean>(isDarkAtom);
   const isDark = useSetRecoilState(isDarkAtom);
   const isDarkMode = () => {
     isDark((prev) => !prev);
   };
-  console.log(isDark);
+  console.log(btnDark);
 
   // const [coins, setCoins] = useState<coins[]>([]);
   // const [loading, setLoading] = useState(true);
@@ -128,11 +105,38 @@ function Coins() {
   return (
     <Container>
       <Header>
-        <Title>COINS</Title>
+        <div></div>
+        <Title>
+          <h2>COINS</h2>
+        </Title>
         <Btn onClick={isDarkMode}>
-          <div>
-            <span></span>
-          </div>
+          {btnDark[0] ? (
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          ) : (
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-5 h-5"
+              >
+                <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z" />
+              </svg>
+            </div>
+          )}
         </Btn>
       </Header>
       {isLoading ? (

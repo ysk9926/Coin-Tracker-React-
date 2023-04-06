@@ -8,7 +8,7 @@ const PriceContainer = styled.div`
 `;
 
 const PriceHeaderBox = styled.div`
-  border: 3px solid ${(props) => props.theme.subBgColor};
+  border: 2px solid ${(props) => props.theme.subBgColor};
   padding: 20px;
   border-radius: 15px;
   display: grid;
